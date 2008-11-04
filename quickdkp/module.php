@@ -114,7 +114,9 @@ if(!function_exists(quickdkp_module)){
 							}
 							$db->free_result($result2);
 
-								$quickdkp  .= '<tr class="'.$eqdkp->switch_row_class().'"><td>'.$plang['Points_DKP'].'</td><td><b>'.$member_dkp. '</b></td></tr>';
+								$quickdkp  .= '<tr class="'.$eqdkp->switch_row_class().'">
+												<td>'.$plang['Points_DKP'].'</td>
+												<td><b>'.$member_dkp. '</b></td></tr>';
 
 						} //end else config plus
 					} // end if member
