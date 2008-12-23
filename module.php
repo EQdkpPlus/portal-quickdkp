@@ -23,13 +23,13 @@ if ( !defined('EQDKP_INC') ){
 $portal_module['quickdkp'] = array(
 			'name'			    => 'QuickDKP Module',
 			'path'			    => 'quickdkp',
-			'version'		    => '1.0.0',
-			'author'        => 'Corgan',
+			'version'		    => '1.0.1',
+			'author'        	=> 'Corgan',
 			'contact'		    => 'http://www.eqdkp-plus.com',
-			'description'   => 'Quick DKP Overview',
-			'positions'     => array('left1', 'left2', 'right'),
-      'signedin'      => '1',
-      'install'       => array(
+			'description'   	=> 'Quick DKP Overview',
+			'positions'     	=> array('left1', 'left2', 'right'),
+      		'signedin'      	=> '1',
+      		'install'       => array(
                             'autoenable'        => '1',
                             'defaultposition'   => 'left1',
                             'defaultnumber'     => '2',
@@ -52,7 +52,7 @@ if(!function_exists(quickdkp_module)){
 
 		if ( $user->data['user_id'] != ANONYMOUS )
 		{
-			$quickdkp  = '<table width="100%" border="0" cellspacing="1" cellpadding="2" ';
+			$quickdkp  = '<table width="100%" border="0" cellspacing="1" cellpadding="2" >';
 			$quickdkp  .='';
 			//get member ID from UserID
 			$sql3 = 'SELECT member_id
