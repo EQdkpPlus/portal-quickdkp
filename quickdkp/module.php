@@ -56,7 +56,7 @@ if(!function_exists(quickdkp_module)){
 			$quickdkp  .='';
 			//get member ID from UserID
 			$sql3 = 'SELECT member_id
-					FROM ' . MEMBER_USER_TABLE . '
+					FROM __member_user
 					WHERE user_id = '. $user->data['user_id'] .'';
 
 		 	$result3 = $db->query($sql3);
@@ -66,8 +66,8 @@ if(!function_exists(quickdkp_module)){
 				//get member info
 
 				$sql	 = 'SELECT m.member_name, m.member_class_id, c.class_name, c.class_id
-							FROM ' . CLASS_TABLE . ' c
-							INNER JOIN '. MEMBERS_TABLE. ' m ON c.class_id = m.member_class_id
+							FROM __classes c
+							INNER JOIN __members m ON c.class_id = m.member_class_id
 							where m.member_id='.$member_id ;
 
 				$result = $db->query($sql);
@@ -104,7 +104,7 @@ if(!function_exists(quickdkp_module)){
 						{
 							//get DKP
 							$sql2 = "SELECT member_earned + member_adjustment - member_spent as dkp
-									FROM ".MEMBERS_TABLE." WHERE member_name = '".$member_name."'";
+									FROM __members WHERE member_name = '".$member_name."'";
 							$result2 = $db->query($sql2);
 							$member_dkp = 0 ;
 							while ( $row2 = $db->fetch_record($result2) )
