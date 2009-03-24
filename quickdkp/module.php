@@ -23,7 +23,7 @@ if ( !defined('EQDKP_INC') ){
 $portal_module['quickdkp'] = array(
 			'name'			    => 'QuickDKP Module',
 			'path'			    => 'quickdkp',
-			'version'		    => '1.0.1',
+			'version'		    => '1.0.2',
 			'author'        	=> 'Corgan',
 			'contact'		    => 'http://www.eqdkp-plus.com',
 			'description'   	=> 'Quick DKP Overview',
