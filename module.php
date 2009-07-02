@@ -53,7 +53,7 @@ if(!function_exists(quickdkp_module)){
 
 		if ( $user->data['user_id'] != ANONYMOUS )
 		{
-  			$quickdkp = $pdc->get('dkp.portal.modul.quickdkp',false,true);
+  			$quickdkp = $pdc->get('dkp.portal.modul.quickdkp.'.$user->data['user_id'],false,true);
   			if (!$quickdkp) 
   			{  			  		
 				
@@ -139,7 +139,7 @@ if(!function_exists(quickdkp_module)){
 	
 				$quickdkp  .='</table>';
 				
-				$pdc->put('dkp.portal.modul.quickdkp',$quickdkp,86400,false,true);
+				$pdc->put('dkp.portal.modul.quickdkp.'.$user->data['user_id'],$quickdkp,86400,false,true);
   			}
 				return $quickdkp;
   				
