@@ -49,11 +49,11 @@ $portal_settings['quickdkp'] = array(
 if(!function_exists(quickdkp_module)){
   function quickdkp_module()
   {
-    global $user, $db, $eqdkp, $dkpplus, $html,$conf_plus,$tpl, $plang,$pdc;
+    global $user, $db, $eqdkp, $dkpplus, $html,$conf_plus,$tpl, $plang,$pdc, $eqdkp_root_path;
 
 		if ( $user->data['user_id'] != ANONYMOUS )
 		{
-  			$quickdkp = $pdc->get('dkp.portal.modul.quickdkp.'.$user->data['user_id'],false,true);
+  			$quickdkp = $pdc->get('dkp.portal.modul.quickdkp.'.$user->data['user_id'].'.'.$eqdkp_root_path,false,true);
   			if (!$quickdkp) 
   			{  			  		
 				
@@ -139,7 +139,7 @@ if(!function_exists(quickdkp_module)){
 	
 				$quickdkp  .='</table>';
 				
-				$pdc->put('dkp.portal.modul.quickdkp.'.$user->data['user_id'],$quickdkp,86400,false,true);
+				$pdc->put('dkp.portal.modul.quickdkp.'.$user->data['user_id'].'.'.$eqdkp_root_path,$quickdkp,86400,false,true);
   			}
 				return $quickdkp;
   				
