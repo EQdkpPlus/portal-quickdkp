@@ -4,17 +4,17 @@ if (!defined('EQDKP_INC')) {
 	die('You cannot access this file directly.');
 }
 
-//Language: French	
-//Created by EQdkp Plus Translation Tool on  2010-07-09 13:55
+//Language: Spanish	
+//Created by EQdkp Plus Translation Tool on  2010-07-09 15:10
 //File: module_quickdkp
 //Source-Language: english
 
 $alang = array( 
-"quickdkp" => "Raccourcis DKP",
-"Points_class" => "Classe:",
-"Points_Char" => "Nom:",
+"quickdkp" => "Quick DKP",
+"Points_class" => "Clase:",
+"Points_Char" => "Nombre:",
 "Points_DKP" => "DKP:",
-"Points_CHAR" => "Aucun membre assigné",
+"Points_CHAR" => "Ningún miembro asignado",
  );
 $plang = array_merge($plang, $alang);
 ?>
