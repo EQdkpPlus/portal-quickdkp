@@ -137,7 +137,7 @@ class quickdkp_portal extends portal_generic {
 				if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
 					continue;
 				}
-				$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)))).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->root_path.'viewcharacter.php'));
+				$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->root_path.'viewcharacter.php'));
 				$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
 				foreach($multidkps as $mdkpid) {
 					if(!in_array($mdkpid, $in_config)) continue;
