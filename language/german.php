@@ -27,6 +27,7 @@ $lang = array(
 	'quickdkp_char'		=> 'Kein Mitglied zugewiesen',
 	'pm_quickdkp_mdkps' => 'Punktekonten zur Anzeige wählen',
 	'pm_quickdkp_tooltip'	=> 'Tooltip mit detaillierter Punktedarstellung anzeigen.',
+	'pm_quickdkp_mainfirst'	=> 'Hauptcharakter ganz oben einsortieren.',
 	'lm_page_quickdkp'	=> 'Quick DKP',
 	'lm_hptt_quickdkp_tooltip' => 'Quick DKP Tooltip',
 );

@@ -27,6 +27,7 @@ $lang = array(
 	'quickdkp_char'		=> 'No characters connected to your account.',
 	'pm_quickdkp_mdkps' => 'Select MultiDKP Pool',
 	'pm_quickdkp_tooltip'	=> 'Show Tooltip with extended Point-Information.',
+	'pm_quickdkp_mainfirst'	=> 'Show main char on top of the char list.',
 	'lm_page_quickdkp'	=> 'Quick DKP',
 	'lm_hptt_quickdkp_tooltip' => 'Quick DKP Tooltip',
 );

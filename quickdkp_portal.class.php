@@ -47,6 +47,11 @@ class quickdkp_portal extends portal_generic {
 			'language'	=> 'pm_quickdkp_tooltip',
 			'property'	=> 'checkbox'
 		),
+		'pm_quickdkp_mainfirst' => array(
+			'name'		=> 'pm_quickdkp_mainfirst',
+			'language'	=> 'pm_quickdkp_mainfirst',
+			'property'	=> 'checkbox'
+		)
 	);
 	protected $install	= array(
 		'autoenable'		=> '1',
@@ -128,11 +133,22 @@ class quickdkp_portal extends portal_generic {
 			}
 		
 		
-			$quickdkp  = '<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">';
-			$preset = $this->pdh->pre_process_preset('current', array(), 0);
-			$multidkps = $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
-			$in_config = ($this->config->get('pm_quickdkp_mdkps')) ? unserialize($this->config->get('pm_quickdkp_mdkps')) : array();
-			$in_config = (is_array($in_config)) ? $in_config : array();
+			$quickdkp	= '<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">';
+			$preset		= $this->pdh->pre_process_preset('current', array(), 0);
+			$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
+			$in_config	= ($this->config->get('pm_quickdkp_mdkps')) ? unserialize($this->config->get('pm_quickdkp_mdkps')) : array();
+			$in_config	= (is_array($in_config)) ? $in_config : array();
+			
+			// lets add the main char at the beginning of the member array
+			if($this->config->get('pm_quickdkp_mainfirst')){
+				$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
+				if(($key = array_search($main_charid, $memberids)) !== false) {
+				    unset($memberids[$key]);
+					array_unshift($memberids, $main_charid);
+				}
+			}
+
+			// start the output
 			foreach($memberids as $member_id) {
 				if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
 					continue;
