@@ -22,7 +22,7 @@ if ( !defined('EQDKP_INC') ){
 
 class quickdkp_portal extends portal_generic {
 	public static function __shortcuts() {
-		$shortcuts = array('user', 'pdh', 'pdc', 'core', 'html', 'jquery', 'game', 'tpl', 'config');
+		$shortcuts = array('user', 'pdh', 'pdc', 'core', 'html', 'jquery', 'game', 'tpl', 'config', 'routing');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -73,18 +73,7 @@ class quickdkp_portal extends portal_generic {
 		$this->create_page_object();
 		return $this->install;
 	}
-	
-	public function update_function($old_version) {
-		$old_version = str_replace('.', '', $old_version);
-		$update_function = 'updatefrom_'.$old_version;
-		if(method_exists($this, $update_function)) $this->$update_function();
-	}
-	
-	private function updatefrom_200() {
-		$this->create_page_object();
-		$this->config->set('pm_quickdkp_tooltip', 1);
-	}
-	
+		
 	private function create_page_object() {
 		$preset = array('points', 'earned', array('%member_id%', '%dkp_id%', '%event_id%', '%with_twink%'), array());
 		$this->pdh->update_user_preset('event_earned', $preset);
@@ -124,8 +113,7 @@ class quickdkp_portal extends portal_generic {
 		if(is_array($memberids) && count($memberids) > 0){
 			//Tooltip position:
 			switch($this->position){
-				case 'left1':
-				case 'left2': $ttpos = 'top left';
+				case 'left': $ttpos = 'top left';
 				break;
 				case 'right': $ttpos = 'top right';
 				break;
@@ -153,7 +141,7 @@ class quickdkp_portal extends portal_generic {
 				if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
 					continue;
 				}
-				$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->root_path.'viewcharacter.php'));
+				$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->build('character',false,false,false), '', false, false, false, true));
 				$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
 				foreach($multidkps as $mdkpid) {
 					if(!in_array($mdkpid, $in_config)) continue;
@@ -188,5 +176,4 @@ class quickdkp_portal extends portal_generic {
 		return $quickdkp;
 	}
 }
-if(version_compare(PHP_VERSION, '5.3.0', '<')) registry::add_const('short_quickdkp_portal', quickdkp_portal::__shortcuts());
 ?>
