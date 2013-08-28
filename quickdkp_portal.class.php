@@ -111,66 +111,83 @@ class quickdkp_portal extends portal_generic {
 		//get member ID from UserID
 		$memberids = $this->pdh->get('member', 'connection_id', array($this->user->data['user_id']));
 		if(is_array($memberids) && count($memberids) > 0){
-			//Tooltip position:
-			switch($this->position){
-				case 'left': $ttpos = 'top left';
-				break;
-				case 'right': $ttpos = 'top right';
-				break;
-				default: $ttpos = 'top bottom';
-			}
-		
-		
-			$quickdkp	= '<table width="100%" border="0" cellspacing="1" cellpadding="2" class="colorswitch">';
-			$preset		= $this->pdh->pre_process_preset('current', array(), 0);
-			$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
-			$in_config	= ($this->config->get('pm_quickdkp_mdkps')) ? unserialize($this->config->get('pm_quickdkp_mdkps')) : array();
-			$in_config	= (is_array($in_config)) ? $in_config : array();
+			if ($this->config->get('pk_disable_points')){
+				// lets add the main char at the beginning of the member array
+				if($this->config->get('pm_quickdkp_mainfirst')){
+					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
+					if(($key = array_search($main_charid, $memberids)) !== false) {
+						unset($memberids[$key]);
+						array_unshift($memberids, $main_charid);
+					}
+				}
+				$quickdkp	= '<table width="100%" class="colorswitch">';
+				foreach($memberids as $member_id) {
+					$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->build('character',false,false,false), '', false, false, false, true));
+					$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
+				}
+				
+			} else {
+	
+				//Tooltip position:
+				switch($this->position){
+					case 'left': $ttpos = 'top left';
+					break;
+					case 'right': $ttpos = 'top right';
+					break;
+					default: $ttpos = 'top bottom';
+				}
 			
-			// lets add the main char at the beginning of the member array
-			if($this->config->get('pm_quickdkp_mainfirst')){
-				$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
-				if(($key = array_search($main_charid, $memberids)) !== false) {
-				    unset($memberids[$key]);
-					array_unshift($memberids, $main_charid);
+			
+				$quickdkp	= '<table width="100%" class="colorswitch">';
+				$preset		= $this->pdh->pre_process_preset('current', array(), 0);
+				$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
+				$in_config	= ($this->config->get('pm_quickdkp_mdkps')) ? unserialize($this->config->get('pm_quickdkp_mdkps')) : array();
+				$in_config	= (is_array($in_config)) ? $in_config : array();
+				
+				// lets add the main char at the beginning of the member array
+				if($this->config->get('pm_quickdkp_mainfirst')){
+					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
+					if(($key = array_search($main_charid, $memberids)) !== false) {
+					    unset($memberids[$key]);
+						array_unshift($memberids, $main_charid);
+					}
 				}
-			}
-
-			// start the output
-			foreach($memberids as $member_id) {
-				if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
-					continue;
-				}
-				$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->build('character',false,false,false), '', false, false, false, true));
-				$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
-				foreach($multidkps as $mdkpid) {
-					if(!in_array($mdkpid, $in_config)) continue;
-					$tooltip = '';
-					if($this->config->get('pm_quickdkp_tooltip')) {
-						$page_setts = $this->pdh->get_page_settings('quickdkp', 'hptt_quickdkp_tooltip');
+	
+				// start the output
+				foreach($memberids as $member_id) {
+					if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
+						continue;
+					}
+					$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->build('character',false,false,false), '', false, false, false, true));
+					$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
+					foreach($multidkps as $mdkpid) {
+						if(!in_array($mdkpid, $in_config)) continue;
 						$tooltip = '';
-						if ($page_setts){
-							$events = $this->pdh->get('multidkp', 'event_ids', array($mdkpid));
-							$subs = array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' => false);
-							$hptt = registry::register('html_pdh_tag_table', array($page_setts, $events, $this->pdh->sort($events, 'event', 'name'), $subs, $member_id.'_'.$mdkpid));
-							$tooltip = '<div id="pm_qd_'.$member_id.'_'.$mdkpid.'" style="display:none;"><table width="600" class="no_bg_table">'.$hptt->get_html_table('', '', null, 1, null, true).'</table></div>';
-							$this->jquery->qtip('#quickdkp_tt'.$member_id.'_'.$mdkpid, 'return $("#pm_qd_'.$member_id.'_'.$mdkpid.'").html();', array('contfunc' => true, 'classes' => 'quickdkp_tt', 'my' => $ttpos));
-							if(!$this->css_added) {
-								$this->tpl->add_css('.quickdkp_tt { max-width: 620px !important;}');
-								$this->css_added = true;
+						if($this->config->get('pm_quickdkp_tooltip')) {
+							$page_setts = $this->pdh->get_page_settings('quickdkp', 'hptt_quickdkp_tooltip');
+							$tooltip = '';
+							if ($page_setts){
+								$events = $this->pdh->get('multidkp', 'event_ids', array($mdkpid));
+								$subs = array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' => false);
+								$hptt = registry::register('html_pdh_tag_table', array($page_setts, $events, $this->pdh->sort($events, 'event', 'name'), $subs, $member_id.'_'.$mdkpid));
+								$tooltip = '<div id="pm_qd_'.$member_id.'_'.$mdkpid.'" style="display:none;"><table width="600" class="no_bg_table">'.$hptt->get_html_table('', '', null, 1, null, true).'</table></div>';
+								$this->jquery->qtip('#quickdkp_tt'.$member_id.'_'.$mdkpid, 'return $("#pm_qd_'.$member_id.'_'.$mdkpid.'").html();', array('contfunc' => true, 'classes' => 'quickdkp_tt', 'my' => $ttpos));
+								if(!$this->css_added) {
+									$this->tpl->add_css('.quickdkp_tt { max-width: 620px !important;}');
+									$this->css_added = true;
+								}
 							}
 						}
+						$current = $this->pdh->geth($preset[0], $preset[1], $preset[2], array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' =>!$this->config->get('pk_show_twinks')));
+	
+						$quickdkp .= '<tr><td>'.$this->pdh->get_html_caption('points', 'current', array($mdkpid, true, true, array('my' => $ttpos, 'name' => 'quickdkp_tt'))).'</td>';
+						$quickdkp .= ($tooltip != "") ? '<td id="quickdkp_tt'.$member_id.'_'.$mdkpid.'">'.$current.$tooltip : '<td>'.$current;
+						$quickdkp .= '</td></tr>';
 					}
-					$current = $this->pdh->geth($preset[0], $preset[1], $preset[2], array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' =>!$this->config->get('pk_show_twinks')));
-
-					$quickdkp .= '<tr><td>'.$this->pdh->get_html_caption('points', 'current', array($mdkpid, true, true, array('my' => $ttpos, 'name' => 'quickdkp_tt'))).'</td>';
-					$quickdkp .= ($tooltip != "") ? '<td id="quickdkp_tt'.$member_id.'_'.$mdkpid.'">'.$current.$tooltip : '<td>'.$current;
-					$quickdkp .= '</td></tr>';
 				}
 			}
 		} else {
-			$quickdkp  = '<table width="100%" border="0" cellspacing="1" cellpadding="2" class="noborder">';
-			$quickdkp  .='<tr><td class="row1">'.$this->user->lang('quickdkp_char').'</td></tr>';
+			return $this->user->lang('quickdkp_char');
 		}
 		$quickdkp  .='</table>';
 		return $quickdkp;
