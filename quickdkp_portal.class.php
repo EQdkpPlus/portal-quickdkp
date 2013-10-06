@@ -111,7 +111,7 @@ class quickdkp_portal extends portal_generic {
 		//get member ID from UserID
 		$memberids = $this->pdh->get('member', 'connection_id', array($this->user->data['user_id']));
 		if(is_array($memberids) && count($memberids) > 0){
-			if ($this->config->get('pk_disable_points')){
+			if ($this->config->get('disable_points')){
 				// lets add the main char at the beginning of the member array
 				if($this->config->get('pm_quickdkp_mainfirst')){
 					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
@@ -155,7 +155,7 @@ class quickdkp_portal extends portal_generic {
 	
 				// start the output
 				foreach($memberids as $member_id) {
-					if(!$this->config->get('pk_show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
+					if(!$this->config->get('show_twinks') && !$this->pdh->get('member', 'is_main', array($member_id))) {
 						continue;
 					}
 					$member_class = $this->game->decorate('classes', array($this->pdh->get('member', 'classid', array($member_id)), false, $member_id)).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->build('character',false,false,false), '', false, false, false, true));
@@ -178,7 +178,7 @@ class quickdkp_portal extends portal_generic {
 								}
 							}
 						}
-						$current = $this->pdh->geth($preset[0], $preset[1], $preset[2], array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' =>!$this->config->get('pk_show_twinks')));
+						$current = $this->pdh->geth($preset[0], $preset[1], $preset[2], array('%member_id%' => $member_id, '%dkp_id%' => $mdkpid, '%with_twink%' =>!$this->config->get('show_twinks')));
 	
 						$quickdkp .= '<tr><td>'.$this->pdh->get_html_caption('points', 'current', array($mdkpid, true, true, array('my' => $ttpos, 'name' => 'quickdkp_tt'))).'</td>';
 						$quickdkp .= ($tooltip != "") ? '<td id="quickdkp_tt'.$member_id.'_'.$mdkpid.'">'.$current.$tooltip : '<td>'.$current;
