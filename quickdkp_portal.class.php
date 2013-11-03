@@ -31,6 +31,7 @@ class quickdkp_portal extends portal_generic {
 		'name'			=> 'QuickDKP Module',
 		'version'		=> '2.1.0',
 		'author'		=> 'EQDKP-PLUS Dev Team',
+		'icon'			=> 'fa-user',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Quick overview of your DKP',
 	);
