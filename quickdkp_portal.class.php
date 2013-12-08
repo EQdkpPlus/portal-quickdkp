@@ -60,12 +60,13 @@ class quickdkp_portal extends portal_generic {
 		return $this->settings;
 	}
 	
-	public function install() {
+	//TODO: Hoofy, anpassen!
+	/*public function install() {
 		$this->config_set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
 		//$this->config->set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
 		$this->create_page_object();
 		return $this->install;
-	}
+	}*/
 		
 	private function create_page_object() {
 		$preset = array('points', 'earned', array('%member_id%', '%dkp_id%', '%event_id%', '%with_twink%'), array());
