@@ -35,14 +35,14 @@ class quickdkp_portal extends portal_generic {
 	protected static $positions = array('left1', 'left2', 'right');
 	protected $settings	= array(
 		'mdkps' => array(
-			'type'		=> 'jq_multiselect',
+			'type'		=> 'multiselect',
 			'options'	=> array(),
 		),
 		'tooltip' => array(
-			'type'		=> 'checkbox'
+			'type'		=> 'radio'
 		),
 		'mainfirst' => array(
-			'type'		=> 'checkbox'
+			'type'		=> 'radio'
 		)
 	);
 	protected static $install	= array(
@@ -55,8 +55,8 @@ class quickdkp_portal extends portal_generic {
 	private $css_added = false;
 	
 	public function get_settings($state) {
-		$this->settings['pm_quickdkp_mdkps']['options'] = $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
-		asort($this->settings['pm_quickdkp_mdkps']['options']);
+		$this->settings['mdkps']['options'] = $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
+		asort($this->settings['mdkps']['options']);
 		return $this->settings;
 	}
 	
