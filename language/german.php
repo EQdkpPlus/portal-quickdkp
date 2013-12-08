@@ -21,14 +21,14 @@ if ( !defined('EQDKP_INC') ){
 }
 
 $lang = array(
-	'quickdkp'			=> 'Meine Charaktere',
-	'quickdkp_name'		=> 'Eigene Charaktere',
-	'quickdkp_desc'		=> 'Zeigt eine Punkteübersicht für die eigenen Charaktere.',
-	'quickdkp_char'		=> 'Kein Mitglied zugewiesen',
-	'pm_quickdkp_mdkps' => 'Punktekonten zur Anzeige wählen',
-	'pm_quickdkp_tooltip'	=> 'Tooltip mit detaillierter Punktedarstellung anzeigen.',
-	'pm_quickdkp_mainfirst'	=> 'Hauptcharakter ganz oben einsortieren.',
-	'lm_page_quickdkp'	=> 'Quick DKP',
+	'quickdkp'				=> 'Meine Charaktere',
+	'quickdkp_name'			=> 'Eigene Charaktere',
+	'quickdkp_desc'			=> 'Zeigt eine Punkteübersicht für die eigenen Charaktere.',
+	'quickdkp_char'			=> 'Kein Mitglied zugewiesen',
+	'quickdkp_f_mdkps'		=> 'Punktekonten zur Anzeige wählen',
+	'quickdkp_f_tooltip'	=> 'Tooltip mit detaillierter Punktedarstellung anzeigen.',
+	'quickdkp_f_mainfirst'	=> 'Hauptcharakter ganz oben einsortieren.',
+	'lm_page_quickdkp'		=> 'Quick DKP',
 	'lm_hptt_quickdkp_tooltip' => 'Quick DKP Tooltip',
 );
 ?>

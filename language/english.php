@@ -21,14 +21,14 @@ if ( !defined('EQDKP_INC') ){
 }
 
 $lang = array(
-	'quickdkp'			=> 'My characters',
-	'quickdkp_name'		=> 'Own characters',
-	'quickdkp_desc'		=> 'Shows an overview of your points for all your characters.',
-	'quickdkp_char'		=> 'No characters connected to your account.',
-	'pm_quickdkp_mdkps' => 'Select MultiDKP Pool',
-	'pm_quickdkp_tooltip'	=> 'Show Tooltip with extended Point-Information.',
-	'pm_quickdkp_mainfirst'	=> 'Show main char on top of the char list.',
-	'lm_page_quickdkp'	=> 'Quick DKP',
+	'quickdkp'				=> 'My characters',
+	'quickdkp_name'			=> 'Own characters',
+	'quickdkp_desc'			=> 'Shows an overview of your points for all your characters.',
+	'quickdkp_char'			=> 'No characters connected to your account.',
+	'quickdkp_f_mdkps'		=> 'Select MultiDKP Pool',
+	'quickdkp_f_tooltip'	=> 'Show Tooltip with extended Point-Information.',
+	'quickdkp_f_mainfirst'	=> 'Show main char on top of the char list.',
+	'lm_page_quickdkp'		=> 'Quick DKP',
 	'lm_hptt_quickdkp_tooltip' => 'Quick DKP Tooltip',
 );
 ?>

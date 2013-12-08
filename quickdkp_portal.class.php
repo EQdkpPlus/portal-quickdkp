@@ -21,40 +21,31 @@ if ( !defined('EQDKP_INC') ){
 }
 
 class quickdkp_portal extends portal_generic {
-	public static function __shortcuts() {
-		$shortcuts = array('user', 'pdh', 'pdc', 'core', 'html', 'jquery', 'game', 'tpl', 'config', 'routing');
-		return array_merge(parent::$shortcuts, $shortcuts);
-	}
 
-	protected $path		= 'quickdkp';
-	protected $data		= array(
+	protected static $path		= 'quickdkp';
+	protected static $data		= array(
 		'name'			=> 'QuickDKP Module',
 		'version'		=> '2.1.0',
 		'author'		=> 'EQDKP-PLUS Dev Team',
 		'icon'			=> 'fa-user',
 		'contact'		=> EQDKP_PROJECT_URL,
 		'description'	=> 'Quick overview of your DKP',
+		'lang_prefix'	=> 'quickdkp_'
 	);
-	protected $positions = array('left1', 'left2', 'right');
+	protected static $positions = array('left1', 'left2', 'right');
 	protected $settings	= array(
-		'pm_quickdkp_mdkps' => array(
-			'name'		=> 'pm_quickdkp_mdkps',
-			'language'	=> 'pm_quickdkp_mdkps',
-			'property'	=> 'jq_multiselect',
+		'mdkps' => array(
+			'type'		=> 'jq_multiselect',
 			'options'	=> array(),
 		),
-		'pm_quickdkp_tooltip' => array(
-			'name'		=> 'pm_quickdkp_tooltip',
-			'language'	=> 'pm_quickdkp_tooltip',
-			'property'	=> 'checkbox'
+		'tooltip' => array(
+			'type'		=> 'checkbox'
 		),
-		'pm_quickdkp_mainfirst' => array(
-			'name'		=> 'pm_quickdkp_mainfirst',
-			'language'	=> 'pm_quickdkp_mainfirst',
-			'property'	=> 'checkbox'
+		'mainfirst' => array(
+			'type'		=> 'checkbox'
 		)
 	);
-	protected $install	= array(
+	protected static $install	= array(
 		'autoenable'		=> '1',
 		'defaultposition'	=> 'left1',
 		'defaultnumber'		=> '2',
@@ -70,7 +61,8 @@ class quickdkp_portal extends portal_generic {
 	}
 	
 	public function install() {
-		$this->config->set(array('pm_quickdkp_mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'pm_quickdkp_tooltip' => 1));
+		$this->config_set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
+		//$this->config->set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
 		$this->create_page_object();
 		return $this->install;
 	}
@@ -114,7 +106,7 @@ class quickdkp_portal extends portal_generic {
 		if(is_array($memberids) && count($memberids) > 0){
 			if ($this->config->get('disable_points')){
 				// lets add the main char at the beginning of the member array
-				if($this->config->get('pm_quickdkp_mainfirst')){
+				if($this->config('mainfirst')){
 					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
 					if(($key = array_search($main_charid, $memberids)) !== false) {
 						unset($memberids[$key]);
@@ -142,11 +134,11 @@ class quickdkp_portal extends portal_generic {
 				$quickdkp	= '<table width="100%" class="colorswitch">';
 				$preset		= $this->pdh->pre_process_preset('current', array(), 0);
 				$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
-				$in_config	= ($this->config->get('pm_quickdkp_mdkps')) ? unserialize($this->config->get('pm_quickdkp_mdkps')) : array();
+				$in_config	= ($this->config('mdkps')) ? unserialize($this->config('mdkps')) : array();
 				$in_config	= (is_array($in_config)) ? $in_config : array();
 				
 				// lets add the main char at the beginning of the member array
-				if($this->config->get('pm_quickdkp_mainfirst')){
+				if($this->config('mainfirst')){
 					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
 					if(($key = array_search($main_charid, $memberids)) !== false) {
 					    unset($memberids[$key]);
@@ -164,7 +156,7 @@ class quickdkp_portal extends portal_generic {
 					foreach($multidkps as $mdkpid) {
 						if(!in_array($mdkpid, $in_config)) continue;
 						$tooltip = '';
-						if($this->config->get('pm_quickdkp_tooltip')) {
+						if($this->config('tooltip')) {
 							$page_setts = $this->pdh->get_page_settings('quickdkp', 'hptt_quickdkp_tooltip');
 							$tooltip = '';
 							if ($page_setts){
