@@ -60,25 +60,24 @@ class quickdkp_portal extends portal_generic {
 		return $this->settings;
 	}
 	
-	//TODO: Hoofy, anpassen!
-	/*public function install() {
-		$this->config_set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
-		//$this->config->set(array('mdkps' => serialize(array(max($this->pdh->get('multidkp', 'id_list')))), 'tooltip' => 1));
-		$this->create_page_object();
-		return $this->install;
-	}*/
+	public static function install($child=false) {
+		self::$install['default_settings'] = array('mdkps' => array(max(register('pdh')->get('multidkp', 'id_list'))), 'tooltip' => 1);
+		self::create_page_object();
+		return self::install;
+	}
 		
-	private function create_page_object() {
+	private static function create_page_object() {
+		$pdh = register('pdh');
 		$preset = array('points', 'earned', array('%member_id%', '%dkp_id%', '%event_id%', '%with_twink%'), array());
-		$this->pdh->update_user_preset('event_earned', $preset);
+		$pdh->update_user_preset('event_earned', $preset);
 		$preset = array('points', 'spent', array('%member_id%', '%dkp_id%', '%event_id%', 0, '%with_twink%'), array());
-		$this->pdh->update_user_preset('event_spent', $preset);
+		$pdh->update_user_preset('event_spent', $preset);
 		$preset = array('points', 'adjustment', array('%member_id%', '%dkp_id%', '%event_id%', '%with_twink%'), array());
-		$this->pdh->update_user_preset('event_adjustment', $preset);
+		$pdh->update_user_preset('event_adjustment', $preset);
 		$preset = array('points', 'current', array('%member_id%', '%dkp_id%', '%event_id%', 0, '%with_twink%'), array('%dkp_id%', false, false));
-		$this->pdh->update_user_preset('event_current', $preset);
-		$this->pdh->delete_page($this->config->get('eqdkp_layout'), 'quickdkp');
-		$this->pdh->add_page($this->config->get('eqdkp_layout'), 'quickdkp', array(
+		$pdh->update_user_preset('event_current', $preset);
+		$pdh->delete_page(register('config')->get('eqdkp_layout'), 'quickdkp');
+		$pdh->add_page(register('config')->get('eqdkp_layout'), 'quickdkp', array(
 			'hptt_quickdkp_tooltip' => array(
 				'name' => 'hptt_quickdkp_tooltip',
 				'table_main_sub' => '%event_id%',
