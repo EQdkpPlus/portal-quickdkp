@@ -39,7 +39,8 @@ class quickdkp_portal extends portal_generic {
 			'options'	=> array(),
 		),
 		'tooltip' => array(
-			'type'		=> 'radio'
+			'type'		=> 'radio',
+			'default'	=> '1',
 		),
 		'mainfirst' => array(
 			'type'		=> 'radio'
@@ -56,12 +57,12 @@ class quickdkp_portal extends portal_generic {
 	
 	public function get_settings($state) {
 		$this->settings['mdkps']['options'] = $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
+		$this->settings['mdkps']['default'] = array(max($this->pdh->get('multidkp', 'id_list')));
 		asort($this->settings['mdkps']['options']);
 		return $this->settings;
 	}
 	
 	public static function install($child=false) {
-		self::$install['default_settings'] = array('mdkps' => array(max(register('pdh')->get('multidkp', 'id_list'))), 'tooltip' => 1);
 		self::create_page_object();
 		return self::install;
 	}
