@@ -64,7 +64,7 @@ class quickdkp_portal extends portal_generic {
 	
 	public static function install($child=false) {
 		self::create_page_object();
-		return self::install;
+		return self::$install;
 	}
 		
 	private static function create_page_object() {
