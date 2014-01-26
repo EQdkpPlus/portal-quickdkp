@@ -135,7 +135,7 @@ class quickdkp_portal extends portal_generic {
 				$quickdkp	= '<table width="100%" class="colorswitch">';
 				$preset		= $this->pdh->pre_process_preset('current', array(), 0);
 				$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
-				$in_config	= ($this->config('mdkps')) ? unserialize($this->config('mdkps')) : array();
+				$in_config	= ($this->config('mdkps')) ? $this->config('mdkps') : array();
 				$in_config	= (is_array($in_config)) ? $in_config : array();
 				
 				// lets add the main char at the beginning of the member array
