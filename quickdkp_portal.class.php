@@ -53,6 +53,8 @@ class quickdkp_portal extends portal_generic {
 		'visibility'		=> array(2,3,4),
 	);
 	
+	protected static $apiLevel = 20;
+	
 	private $css_added = false;
 	
 	public function get_settings($state) {
