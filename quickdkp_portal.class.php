@@ -79,8 +79,8 @@ class quickdkp_portal extends portal_generic {
 		$pdh->update_user_preset('event_adjustment', $preset);
 		$preset = array('points', 'current', array('%member_id%', '%dkp_id%', '%event_id%', 0, '%with_twink%'), array('%dkp_id%', false, false));
 		$pdh->update_user_preset('event_current', $preset);
-		$pdh->delete_page(register('config')->get('eqdkp_layout'), 'quickdkp');
-		$pdh->add_page(register('config')->get('eqdkp_layout'), 'quickdkp', array(
+		$pdh->delete_page('quickdkp');
+		$pdh->add_page('quickdkp', array(
 			'hptt_quickdkp_tooltip' => array(
 				'name' => 'hptt_quickdkp_tooltip',
 				'table_main_sub' => '%event_id%',
