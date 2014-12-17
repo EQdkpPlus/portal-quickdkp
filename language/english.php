@@ -1,6 +1,6 @@
 <?php
 /*	Project:	EQdkp-Plus
- *	Package:	quickDKP Portal Module
+ *	Package:	EQdkp-Plus Language File
  *	Link:		http://eqdkp-plus.eu
  *
  *	Copyright (C) 2006-2015 EQdkp-Plus Developer Team
@@ -19,19 +19,27 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !defined('EQDKP_INC') ){
-	header('HTTP/1.0 404 Not Found');exit;
+ 
+if (!defined('EQDKP_INC')) {
+	die('You cannot access this file directly.');
 }
 
-$lang = array(
-	'quickdkp'				=> 'My characters',
-	'quickdkp_name'			=> 'Own characters',
-	'quickdkp_desc'			=> 'Shows an overview of your points for all your characters.',
-	'quickdkp_char'			=> 'No characters connected to your account.',
-	'quickdkp_f_mdkps'		=> 'Select MultiDKP Pool',
-	'quickdkp_f_tooltip'	=> 'Show Tooltip with extended Point-Information.',
-	'quickdkp_f_mainfirst'	=> 'Show main char on top of the char list.',
-	'lm_page_quickdkp'		=> 'Quick DKP',
-	'lm_hptt_quickdkp_tooltip' => 'Quick DKP Tooltip',
+//Language: English	
+//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//File: portal/quickdkp/language/english.php
+//Source-Language: german
+
+$lang = array( 
+	"quickdkp" => 'My characters',
+	"quickdkp_name" => 'Own characters',
+	"quickdkp_desc" => 'Shows an overview of your points for all your characters.',
+	"quickdkp_char" => 'No characters connected to your account.',
+	"quickdkp_f_mdkps" => 'Select MultiDKP Pool',
+	"quickdkp_f_tooltip" => 'Show Tooltip with extended Point-Information.',
+	"quickdkp_f_mainfirst" => 'Show main char on top of the char list.',
+	"lm_page_quickdkp" => 'Quick DKP',
+	"lm_hptt_quickdkp_tooltip" => 'Quick DKP Tooltip',
+	
 );
+
 ?>
