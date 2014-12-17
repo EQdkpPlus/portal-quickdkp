@@ -25,7 +25,7 @@ if (!defined('EQDKP_INC')) {
 }
 
 //Language: English	
-//Created by EQdkp Plus Translation Tool on  2014-12-17 21:28
+//Created by EQdkp Plus Translation Tool on  2014-12-17 23:17
 //File: portal/quickdkp/language/english.php
 //Source-Language: german
 
