@@ -28,7 +28,7 @@ class quickdkp_portal extends portal_generic {
 	protected static $path		= 'quickdkp';
 	protected static $data		= array(
 		'name'			=> 'QuickDKP Module',
-		'version'		=> '2.1.0',
+		'version'		=> '3.0.0',
 		'author'		=> 'EQDKP-PLUS Dev Team',
 		'icon'			=> 'fa-user',
 		'contact'		=> EQDKP_PROJECT_URL,
