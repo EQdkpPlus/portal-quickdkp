@@ -119,7 +119,7 @@ class quickdkp_portal extends portal_generic {
 						array_unshift($memberids, $main_charid);
 					}
 				}
-				$quickdkp	= '<table width="100%" class="colorswitch">';
+				$quickdkp	= '<table class="table fullwidth colorswitch">';
 				foreach($memberids as $member_id) {
 					$member_class = $this->game->decorate_character($member_id).' '.$this->pdh->geth('member', 'memberlink', array($member_id, $this->routing->simpleBuild("character"), '', false, false, false, true));
 					$quickdkp .= '<tr><td colspan="2">'.$member_class.'</td></tr>';
@@ -137,7 +137,7 @@ class quickdkp_portal extends portal_generic {
 				}
 			
 			
-				$quickdkp	= '<table width="100%" class="colorswitch">';
+				$quickdkp	= '<table class="table fullwidth colorswitch">';
 				$preset		= $this->pdh->pre_process_preset('current', array(), 0);
 				$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
 				$in_config	= ($this->config('mdkps')) ? $this->config('mdkps') : array();
