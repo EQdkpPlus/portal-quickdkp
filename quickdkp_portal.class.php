@@ -110,7 +110,7 @@ class quickdkp_portal extends portal_generic {
 		//get member ID from UserID
 		$memberids = $this->pdh->get('member', 'connection_id', array($this->user->data['user_id']));
 		if(is_array($memberids) && count($memberids) > 0){
-			if ($this->config->get('disable_points')){
+			if (!$this->config->get('enable_points')){
 				// lets add the main char at the beginning of the member array
 				if($this->config('mainfirst')){
 					$main_charid	= $this->pdh->get('member', 'mainchar', array($this->user->data['user_id']));
