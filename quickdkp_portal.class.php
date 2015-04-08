@@ -62,7 +62,7 @@ class quickdkp_portal extends portal_generic {
 	
 	public function get_settings($state) {
 		$this->settings['mdkps']['options'] = $this->pdh->aget('multidkp', 'name', 0, array($this->pdh->get('multidkp', 'id_list')));
-		$this->settings['mdkps']['default'] = array(max($this->pdh->get('multidkp', 'id_list')));
+		//$this->settings['mdkps']['default'] = array(max($this->pdh->get('multidkp', 'id_list')));
 		asort($this->settings['mdkps']['options']);
 		return $this->settings;
 	}
