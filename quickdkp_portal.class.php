@@ -28,7 +28,7 @@ class quickdkp_portal extends portal_generic {
 	protected static $path		= 'quickdkp';
 	protected static $data		= array(
 		'name'			=> 'QuickDKP Module',
-		'version'		=> '3.0.3',
+		'version'		=> '3.0.4',
 		'author'		=> 'EQDKP-PLUS Dev Team',
 		'icon'			=> 'fa-user',
 		'contact'		=> EQDKP_PROJECT_URL,
@@ -140,7 +140,8 @@ class quickdkp_portal extends portal_generic {
 				$quickdkp	= '<table class="table fullwidth colorswitch">';
 				$preset		= $this->pdh->pre_process_preset('current', array(), 0);
 				$multidkps	= $this->pdh->sort($this->pdh->get('multidkp', 'id_list'), 'multidkp', 'name');
-				$in_config	= ($this->config('mdkps') && is_array($this->config('mdkps'))) ? $this->config('mdkps') : array(max($this->pdh->get('multidkp', 'id_list')));
+				$in_config	= ($this->config('mdkps')) ? $this->config('mdkps') : array();
+				$in_config	= (is_array($in_config)) ? $in_config : array();
 				
 				// lets add the main char at the beginning of the member array
 				if($this->config('mainfirst')){
